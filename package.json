@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/renatooliveirajs/renstack-oxlint-config"
+    "url": "git+https://github.com/renatooliveirajs/renstack-oxlint-config.git"
   },
   "files": [
     "src"
