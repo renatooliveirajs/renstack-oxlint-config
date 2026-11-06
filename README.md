@@ -81,6 +81,44 @@ export default {
 
 As configurações devem ser módulos TypeScript para usar esses imports; não coloque imports em `.oxlintrc.json` ou `.oxfmtrc.json`.
 
+## VS Code no projeto consumidor
+
+Instale a extensão oficial [Oxc](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) (`oxc.oxc-vscode`), também compatível com editores baseados no VS Code, como Cursor.
+
+A extensão usa o `oxlint --lsp` instalado **localmente no projeto**. Instale as dependências com `npm install` e abra a pasta do projeto consumidor no editor. Mantenha o `oxlint.config.ts` na raiz, importando o preset desta lib conforme os exemplos anteriores. Instalar apenas esta lib ou a extensão não substitui a instalação local do `oxlint`.
+
+### Recomendar a extensão para a equipe
+
+Crie `.vscode/extensions.json` no projeto consumidor:
+
+```json
+{
+  "recommendations": ["oxc.oxc-vscode"]
+}
+```
+
+Essa configuração recomenda a extensão, mas cada colaborador precisa instalá-la.
+
+### Aplicar correções ao salvar
+
+Crie `.vscode/settings.json`:
+
+```json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  }
+}
+```
+
+Se esses arquivos já existirem, acrescente as opções sem remover as configurações atuais. Versione ambos para compartilhar a configuração com a equipe.
+
+Com a extensão ativa, o Oxlint apresenta os diagnósticos no editor e no painel **Problems**, respeitando o preset importado pelo projeto. O fix-on-save aplica apenas as correções disponíveis do linter; não substitui a formatação do Oxfmt nem corrige automaticamente todos os erros.
+
+Se os diagnósticos não aparecerem, confirme que as dependências estão instaladas, que a extensão está habilitada no workspace e que o editor usa uma versão compatível do Node.js para carregar o `oxlint.config.ts`. Após alterações, execute **Developer: Reload Window** na paleta de comandos e consulte o painel **Output** da extensão Oxc para investigar erros.
+
+Referência: [configuração oficial do Oxlint para VS Code](https://oxc.rs/docs/guide/usage/linter/editors.html#vs-code).
+
 ## Scripts no projeto consumidor
 
 ```json
